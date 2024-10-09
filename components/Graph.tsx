@@ -40,7 +40,7 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export default function Graph() {
+export default function Graph({ myPer }: { myPer: number }) {
     return (
         <motion.div
             initial={{

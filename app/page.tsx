@@ -134,7 +134,7 @@ export default function Home() {
             </div>
           </motion.div>
           <QuickCard rank={rank} percentile={percentile} score={score} />
-          <Graph />
+          <Graph myPer={percentile} />
         </div>
         <div className="space-y-5">
           <SyllabusCard />
