@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import {
     Sheet,
@@ -8,15 +9,15 @@ import {
 import { BadgeCheck, ChartNoAxesColumn, MenuIcon } from 'lucide-react'
 function MobileMenu() {
     return (
-        <div className='md:hidden mt-2'>
+        <div className='md:hidden mt-2 ml-6'>
             <Sheet>
                 <SheetTrigger>
                     <MenuIcon color='#B2B2B2' size={40} className='p-2 hover:opacity-30 rounded-lg text-black' />
                 </SheetTrigger>
                 <SheetContent side='left'>
                     <div className='h-screen min-w-64'>
-                        <img src='https://static.wixstatic.com/media/5715ab_375da3231ff949b8a4b4f2acb19768db~mv2.png' alt='' className='w-64 h-14 m-7' />
-                        <div className='mt-20'>
+                        <img src='https://static.wixstatic.com/media/5715ab_375da3231ff949b8a4b4f2acb19768db~mv2.png' alt='' className='w-64 h-14 mt-5' />
+                        <div className='mt-10'>
                             <div className='-ml-5 hover:bg-purple-300 py-5 rounded-r-full'>
                                 <div className='flex space-x-5 ml-5'>
                                     <ChartNoAxesColumn />
