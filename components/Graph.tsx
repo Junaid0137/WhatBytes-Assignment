@@ -40,9 +40,7 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-export default function Graph({ myRank, myPer, myScore }: { myRank: number, myPer: number, myScore: number }) {
-    console.log(myRank)
-
+export default function Graph() {
     return (
         <motion.div
             initial={{
