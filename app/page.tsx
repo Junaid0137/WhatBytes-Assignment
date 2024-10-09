@@ -87,7 +87,7 @@ export default function Home() {
                           id="name"
                           defaultValue={rank}
                           className="w-32"
-                          onChange={(e) => setNewRank(e.target.value)}
+                          onChange={(e) => setNewRank(Number(e.target.value))}
                           type="number"
                         />
                       </div>
@@ -102,7 +102,7 @@ export default function Home() {
                           id="name"
                           defaultValue={percentile}
                           className="w-32"
-                          onChange={(e) => setNewPercentile(e.target.value)}
+                          onChange={(e) => setNewPercentile(Number(e.target.value))}
                           type="number"
                         />
                       </div>
@@ -120,7 +120,7 @@ export default function Home() {
                           id="name"
                           defaultValue={score}
                           className="w-32"
-                          onChange={(e) => setNewScore(e.target.value)}
+                          onChange={(e) => setNewScore(Number(e.target.value))}
                           type="number"
                         />
                       </div>
