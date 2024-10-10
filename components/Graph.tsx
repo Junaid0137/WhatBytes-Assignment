@@ -1,132 +1,133 @@
-"use client"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
-import { motion } from "framer-motion"
+"use client";
+import { CartesianGrid, Line, LineChart, YAxis } from "recharts";
+import { motion } from "framer-motion";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
-export const description = "A line chart with dots"
+export const description = "A line chart with dots";
 
 const chartData = [
-    { range: "0", rank: 186, per: 80, score: 5 },
-    { range: "25", rank: 305, per: 200, score: 6 },
-    { range: "50", rank: 237, per: 120, score: 7 },
-    { range: "75", rank: 73, per: 190, score: 8 },
-    { range: "100", rank: 209, per: 130, score: 9 },
-]
+    { per: 40 },
+    { per: 95 },
+    { per: 78 },
+    { per: 87 },
+    { per: 67 },
+    { per: 40 },
+    { per: 95 },
+    { per: 22 },
+    { per: 87 },
+    { per: 67 },
+];
 
 const chartConfig = {
-    rank: {
-        label: "Rank",
-        color: "green",
-    },
     per: {
         label: "Percentile",
-        color: "red",
-    },
-    score: {
-        label: "Score",
         color: "blue",
     },
-} satisfies ChartConfig
+};
 
-export default function Graph({ myPer }: { myPer: number }) {
+// Function to map percentile to range (0, 25, 50, 75, 100)
+const getRangeForPercentile = (per: number) => {
+    if (per <= 25) return 0;
+    if (per <= 50) return 25;
+    if (per <= 75) return 50;
+    if (per <= 100) return 75;
+    return 100;
+};
+
+export default function Graph({ myPer }: { myPer: number, myRank: number, myScore: number }) {
+    const myPerExists = chartData.some(data => data.per === myPer);
+
+    // Add myPer only if it doesn't already exist in chartData
+    if (!myPerExists) {
+        chartData.pop();
+        chartData.push({ per: myPer });
+    }
+
     return (
         <motion.div
-            initial={{
-                opacity: 0,
-                y: 100
-            }}
-            animate={{
-                opacity: 1,
-                y: 0
-            }}
-            transition={{
-                duration: 1.5
-            }}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5 }}
         >
             <Card>
                 <CardHeader>
                     <CardTitle>Comparison Graph</CardTitle>
-                    <CardDescription>You scored {myPer}%, which is lower than the average percentile (72%) of all engineers who took this assessment</CardDescription>
+                    <CardDescription>
+                        You scored {myPer}%, which is lower than the average percentile (72%) of all engineers who took this assessment
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <ChartContainer config={chartConfig}>
                         <LineChart
-                            accessibilityLayer
-                            data={chartData}
+                            data={chartData.map((data) => ({
+                                ...data,
+                                range: getRangeForPercentile(data.per), // Map per to x-axis range
+                            }))}
                             margin={{
                                 left: 12,
                                 right: 12,
                             }}
                         >
                             <CartesianGrid vertical={false} />
-                            <XAxis
-                                dataKey="range"
-                                tickLine={false}
-                                axisLine={false}
-                                tickMargin={8}
-                            />
+                            <YAxis domain={[0, 100]} tickLine={false} axisLine={false} />
                             <ChartTooltip
                                 cursor={false}
                                 content={<ChartTooltipContent hideLabel />}
-                            />
-
-                            {/* Rank Line */}
-                            <Line
-                                dataKey="rank"
-                                type="natural"
-                                stroke="red"  // Unique color for rank line
-                                strokeWidth={2}
-                                dot={{
-                                    fill: "red",
-                                }}
-                                activeDot={{
-                                    r: 6,
-                                }}
                             />
 
                             {/* Percentile Line */}
                             <Line
                                 dataKey="per"
                                 type="natural"
-                                stroke="green"  // Unique color for percentile line
+                                stroke="#A594F9"
                                 strokeWidth={2}
-                                dot={{
-                                    fill: "green",
-                                }}
-                                activeDot={{
-                                    r: 6,
-                                }}
-                            />
-
-                            {/* Score Line */}
-                            <Line
-                                dataKey="score"
-                                type="natural"
-                                stroke="blue"  // Unique color for score line
-                                strokeWidth={2}
-                                dot={{
-                                    fill: "blue",
-                                }}
-                                activeDot={{
-                                    r: 6,
-                                }}
+                                dot={(props) => (
+                                    <>
+                                        <circle
+                                            cx={props.cx}
+                                            cy={props.cy}
+                                            r={props.r}
+                                            fill={props.payload.per === myPer ? "red" : "#A594F9"}
+                                        />
+                                        {props.payload.per === myPer && (
+                                            <>
+                                                <text
+                                                    x={props.cx - 20}
+                                                    y={props.cy + 20}
+                                                    fill="#A594F9"
+                                                    textAnchor="middle"
+                                                >
+                                                    Your
+                                                </text>
+                                                <text
+                                                    x={props.cx - 20}
+                                                    y={props.cy + 30}
+                                                    fill="#A594F9"
+                                                    textAnchor="middle"
+                                                >
+                                                    Percentile
+                                                </text>
+                                            </>
+                                        )}
+                                    </>
+                                )}
+                                activeDot={{ r: 6 }}
                             />
                         </LineChart>
                     </ChartContainer>
                 </CardContent>
             </Card>
         </motion.div>
-    )
+    );
 }

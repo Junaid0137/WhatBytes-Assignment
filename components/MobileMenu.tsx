@@ -9,7 +9,7 @@ import {
 import { BadgeCheck, ChartNoAxesColumn, MenuIcon } from 'lucide-react'
 function MobileMenu() {
     return (
-        <div className='md:hidden mt-2 ml-6'>
+        <div className='xl:hidden mt-2 ml-6 md:ml-10'>
             <Sheet>
                 <SheetTrigger>
                     <MenuIcon color='#B2B2B2' size={40} className='p-2 hover:opacity-30 rounded-lg text-black' />
@@ -18,19 +18,19 @@ function MobileMenu() {
                     <div className='h-screen min-w-64'>
                         <img src='https://static.wixstatic.com/media/5715ab_375da3231ff949b8a4b4f2acb19768db~mv2.png' alt='' className='w-64 h-14 mt-5' />
                         <div className='mt-10'>
-                            <div className='-ml-5 hover:bg-purple-300 py-5 rounded-r-full'>
+                            <div className='-ml-5 hover:bg-[#F4F6F8] py-5 rounded-r-full'>
                                 <div className='flex space-x-5 ml-5'>
                                     <ChartNoAxesColumn />
                                     <h1 className='font-bold text-lg text-gray-600'>Dashboard</h1>
                                 </div>
                             </div>
-                            <div className='-ml-5 hover:bg-purple-300 py-5 rounded-r-full'>
+                            <div className='-ml-5 hover:bg-[#F4F6F8] py-5 rounded-r-full'>
                                 <div className='flex space-x-5 ml-5 items-center'>
                                     <BadgeCheck />
                                     <h1 className='font-bold text-lg text-gray-600' >Skill Test</h1>
                                 </div>
                             </div>
-                            <div className='-ml-5 hover:bg-purple-300 py-5 rounded-r-full'>
+                            <div className='-ml-5 hover:bg-[#F4F6F8] py-5 rounded-r-full'>
                                 <div className='flex space-x-5 ml-5 items-center'>
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">

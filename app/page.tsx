@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <div className="md:p-10 mx-auto">
       <h1 className="text-lg text-gray-500 pl-2 pt-5 md:pt-0">Skill Test</h1>
-      <div className="mt-5 flex md:space-x-5 flex-col md:flex-row max-w-80 md:max-w-full space-y-5 md:space-y-0">
+      <div className="mt-5 flex xl:space-x-5 flex-col xl:flex-row max-w-80 md:max-w-full space-y-5 xl:space-y-0">
         <div className="space-y-5">
           <motion.div
             initial={{
@@ -66,76 +66,74 @@ export default function Home() {
                 <h3 className="font-semibold text-gray-500 text-xs md:text-lg">Questions: 08 | Duration: 15 mins | Submitted on 5 June 2021</h3>
               </div>
             </div>
-            <div className="flex w-full md:max-w-10 justify-end">
-              <div className="mt-2 mr-2 md:mr-0 md:mt-0">
-                <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                  <DialogTrigger asChild>
-                    <Button className="w-16 h-8">Update</Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle>Update Score</DialogTitle>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                      <div className="items-center justify-between flex">
-                        <div className='flex space-x-2 items-center'>
-                          <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
-                            1
-                          </div>
-                          <h1>Update your Rank</h1>
+            <div className="mt-10 md:mt-0">
+              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                <DialogTrigger asChild>
+                  <Button className="w-16 h-8 fixed bottom-4 right-4 md:static">Update</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Update Score</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="items-center justify-between flex">
+                      <div className='flex space-x-2 items-center'>
+                        <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
+                          1
                         </div>
-                        <Input
-                          id="name"
-                          defaultValue={rank}
-                          className="w-32"
-                          onChange={(e) => setNewRank(Number(e.target.value))}
-                          type="number"
-                        />
+                        <h1>Update your Rank</h1>
                       </div>
-                      <div className="items-center justify-between flex">
-                        <div className='flex space-x-2 items-center'>
-                          <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
-                            2
-                          </div>
-                          <h1>Update your Percentile</h1>
-                        </div>
-                        <Input
-                          id="name"
-                          defaultValue={percentile}
-                          className="w-32"
-                          onChange={(e) => setNewPercentile(Number(e.target.value))}
-                          type="number"
-                        />
-                      </div>
-                      <div className="items-center justify-between flex">
-                        <div className='flex space-x-2 items-center'>
-                          <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
-                            3
-                          </div>
-                          <div>
-                            <h1>Update your Current Score</h1>
-                            <h1>out of 15</h1>
-                          </div>
-                        </div>
-                        <Input
-                          id="name"
-                          defaultValue={score}
-                          className="w-32"
-                          onChange={(e) => setNewScore(Number(e.target.value))}
-                          type="number"
-                        />
-                      </div>
+                      <Input
+                        id="name"
+                        defaultValue={rank}
+                        className="w-32"
+                        onChange={(e) => setNewRank(Number(e.target.value))}
+                        type="number"
+                      />
                     </div>
-                    <DialogFooter>
-                      <Button type="submit" onClick={handleSubmit}>Save changes</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </div>
+                    <div className="items-center justify-between flex">
+                      <div className='flex space-x-2 items-center'>
+                        <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
+                          2
+                        </div>
+                        <h1>Update your Percentile</h1>
+                      </div>
+                      <Input
+                        id="name"
+                        defaultValue={percentile}
+                        className="w-32"
+                        onChange={(e) => setNewPercentile(Number(e.target.value))}
+                        type="number"
+                      />
+                    </div>
+                    <div className="items-center justify-between flex">
+                      <div className='flex space-x-2 items-center'>
+                        <div className='px-2 border border-black rounded-full bg-blue-900 text-white'>
+                          3
+                        </div>
+                        <div>
+                          <h1>Update your Current Score</h1>
+                          <h1>out of 15</h1>
+                        </div>
+                      </div>
+                      <Input
+                        id="name"
+                        defaultValue={score}
+                        className="w-32"
+                        onChange={(e) => setNewScore(Number(e.target.value))}
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" onClick={handleSubmit}>Save changes</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </motion.div>
           <QuickCard rank={rank} percentile={percentile} score={score} />
-          <Graph myPer={percentile} />
+          <Graph myPer={percentile} myRank={rank} myScore={score} />
         </div>
         <div className="space-y-5">
           <SyllabusCard />
