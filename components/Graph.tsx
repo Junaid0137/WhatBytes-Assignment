@@ -1,5 +1,5 @@
 "use client";
-import { CartesianGrid, Line, LineChart, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { motion } from "framer-motion";
 import {
     Card,
@@ -8,6 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { useMediaQuery } from "react-responsive";
 import {
     ChartContainer,
     ChartTooltip,
@@ -36,7 +37,6 @@ const chartConfig = {
     },
 };
 
-// Function to map percentile to range (0, 25, 50, 75, 100)
 const getRangeForPercentile = (per: number) => {
     if (per <= 25) return 0;
     if (per <= 50) return 25;
@@ -47,8 +47,9 @@ const getRangeForPercentile = (per: number) => {
 
 export default function Graph({ myPer }: { myPer: number, myRank: number, myScore: number }) {
     const myPerExists = chartData.some(data => data.per === myPer);
+    const isSmallScreen = useMediaQuery({ query: "(max-width: 767px)" });
+    const isMediumOrLargeScreen = useMediaQuery({ query: "(min-width: 768px)" });
 
-    // Add myPer only if it doesn't already exist in chartData
     if (!myPerExists) {
         chartData.pop();
         chartData.push({ per: myPer });
@@ -72,7 +73,7 @@ export default function Graph({ myPer }: { myPer: number, myRank: number, myScor
                         <LineChart
                             data={chartData.map((data) => ({
                                 ...data,
-                                range: getRangeForPercentile(data.per), // Map per to x-axis range
+                                range: getRangeForPercentile(data.per),
                             }))}
                             margin={{
                                 left: 12,
@@ -80,13 +81,19 @@ export default function Graph({ myPer }: { myPer: number, myRank: number, myScor
                             }}
                         >
                             <CartesianGrid vertical={false} />
-                            <YAxis domain={[0, 100]} tickLine={false} axisLine={false} />
+
+                            {isSmallScreen && (
+                                <XAxis domain={[0, 100]} tickLine={false} axisLine={false} className="hidden" />
+                            )}
+                            {isMediumOrLargeScreen && (
+                                <YAxis domain={[0, 100]} tickLine={false} axisLine={false} />
+                            )}
                             <ChartTooltip
                                 cursor={false}
                                 content={<ChartTooltipContent hideLabel />}
                             />
 
-                            {/* Percentile Line */}
+
                             <Line
                                 dataKey="per"
                                 type="natural"
@@ -102,7 +109,7 @@ export default function Graph({ myPer }: { myPer: number, myRank: number, myScor
                                         />
                                         {props.payload.per === myPer && (
                                             <>
-                                                <text
+                                                <text className="hidden md:inline"
                                                     x={props.cx - 20}
                                                     y={props.cy + 20}
                                                     fill="#A594F9"
@@ -110,7 +117,7 @@ export default function Graph({ myPer }: { myPer: number, myRank: number, myScor
                                                 >
                                                     Your
                                                 </text>
-                                                <text
+                                                <text className="hidden md:inline"
                                                     x={props.cx - 20}
                                                     y={props.cy + 30}
                                                     fill="#A594F9"
