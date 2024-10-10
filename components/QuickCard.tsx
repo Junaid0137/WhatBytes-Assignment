@@ -1,7 +1,6 @@
 'use client';
 import React from 'react'
 import { motion } from "framer-motion"
-import { Separator } from "@/components/ui/separator"
 function QuickCard({ rank, percentile, score }: { rank: number, percentile: number, score: number }) {
     return (
         <motion.div
@@ -19,7 +18,7 @@ function QuickCard({ rank, percentile, score }: { rank: number, percentile: numb
             className="border border-b p-5 items-center rounded-xl">
             <h1 className="font-bold text-lg">Quick Statistics</h1>
             <div className="flex flex-col md:flex-row">
-                <div className="flex items-center p-5 space-x-4 border-r border-gray-300">
+                <div className="flex items-center p-5 space-x-4 md:border-r md:border-gray-300">
                     <div className="px-1 py-3 border border-black rounded-full bg-gray-100">
                         <img src="https://www.pngplay.com/wp-content/uploads/8/Trophy-Transparent-PNG.png" alt="" className="w-12 h-8" />
                     </div>
@@ -28,8 +27,7 @@ function QuickCard({ rank, percentile, score }: { rank: number, percentile: numb
                         <h3 className="text-gray-500 text-sm font-semibold">YOUR RANK</h3>
                     </div>
                 </div>
-                <Separator className='bg-black' orientation='vertical' />
-                <div className="flex items-center p-5 space-x-4 border-r border-gray-300">
+                <div className="flex items-center p-5 space-x-4 md:border-r md:border-gray-300">
                     <div className="p-3 border border-black rounded-full bg-gray-100">
                         <img src="https://cdn-icons-png.flaticon.com/512/4138/4138081.png" alt="" className="w-8 h-8" />
                     </div>
