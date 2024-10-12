@@ -26,18 +26,21 @@ export default function Home() {
   const [newScore, setNewScore] = useState(score);
   const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = () => {
-    if (newPercentile <= 100 && newScore <= 15) {
+    if ((newPercentile <= 100 && newPercentile >= 1) && (newScore <= 15 && newScore >= 0) && (newRank >= 1)) {
       setRank(newRank);
       setPercentile(newPercentile);
       setScore(newScore);
       setIsOpen(false);
       toast.success('Data Updated Successfully');
     } else {
-      if (newPercentile > 100) {
-        toast.error('Percentile must be less than 100')
+      if (newPercentile > 100 || newPercentile <= 0) {
+        toast.error('Percentile is invalid')
       }
-      if (newScore > 15) {
-        toast.error('Score must be less than 15');
+      if (newScore > 15 || newScore < 0) {
+        toast.error('Score is invalid');
+      }
+      if (newRank <= 0) {
+        toast.error('Rank is invalid');
       }
     }
   }
